@@ -36,6 +36,7 @@ int main()
             if (button_high_valid_counter > 500) /* 500 acts as threshold value */
             { 
                 button_high_valid_state = BUTTON_PRESSED;  /* valid status */
+                button_high_valid_counter = 500; // Avoid Overflow
             }
         }
         else
@@ -44,7 +45,7 @@ int main()
             button_high_valid_state = BUTTON_RELEASED;  /* valid status */
         }
         
-        if(BUTTON_PRESSED == button_high_valid_state && BUTTON_RELEASED == button_high_previous_valid_state) // Detect rising edge
+        if(BUTTON_PRESSED == button_high_valid_state && BUTTON_RELEASED == button_high_previous_valid_state)
         {
             ret = led_toggle(&led_1);
         }
@@ -56,5 +57,6 @@ void application_initialize(void)
 {
 
     ret = button_initialize(&button_high);
+    
     ret = led_initialize(&led_1);
 }
