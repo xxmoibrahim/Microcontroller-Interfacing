@@ -16,6 +16,7 @@ button_t button_high = {.button_pin = {.port = PORTC_INDEX, .pin = GPIO_PIN2, .d
 Std_ReturnType ret = E_NOT_OK;
 button_state_t button_high_state = BUTTON_RELEASED;
 button_state_t button_high_valid_state = BUTTON_RELEASED;// Store The Final valid State of the button
+button_state_t button_high_previous_valid_state = BUTTON_RELEASED;// Store The Final valid State of the button
 uint32 button_high_valid_counter = 0; // Store Threshold Value for debouncing
 
 int main()
@@ -25,8 +26,10 @@ int main()
 
     while (1)
     {
+        button_high_previous_valid_state = button_high_valid_state ; 
         ret = button_read_state(&button_high, &button_high_state);
-
+        
+        /* Calculating the right State of a Button Using Threshold value */
         if (BUTTON_PRESSED == button_high_state)
         {
             button_high_valid_counter++;
@@ -39,6 +42,11 @@ int main()
         {
             button_high_valid_counter = 0;
             button_high_valid_state = BUTTON_RELEASED;  /* valid status */
+        }
+        
+        if(BUTTON_PRESSED == button_high_valid_state && BUTTON_RELEASED == button_high_previous_valid_state)
+        {
+            ret = led_toggle(&led_1);
         }
     }
     return (EXIT_SUCCESS);
