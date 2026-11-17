@@ -21,7 +21,7 @@ uint32 btn_high_valid_counter = 0;
 int main()
 {
 
-    application_initialize();
+    application_initialize();;
 
     while (1)
     {
