@@ -44,7 +44,7 @@ int main()
             button_high_valid_state = BUTTON_RELEASED;  /* valid status */
         }
         
-        if(BUTTON_PRESSED == button_high_valid_state && BUTTON_RELEASED == button_high_previous_valid_state)
+        if(BUTTON_PRESSED == button_high_valid_state && BUTTON_RELEASED == button_high_previous_valid_state) // Detect rising edge
         {
             ret = led_toggle(&led_1);
         }
