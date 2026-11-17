@@ -15,13 +15,13 @@ button_t button_high = {.button_pin = {.port = PORTC_INDEX, .pin = GPIO_PIN2, .d
 
 Std_ReturnType ret = E_NOT_OK;
 button_state_t button_high_state = BUTTON_RELEASED;
-button_state_t button_high_valid_state = BUTTON_RELEASED;
-uint32 btn_high_valid_counter = 0;
+button_state_t button_high_valid_state = BUTTON_RELEASED;// Store The Final valid State of the button
+uint32 button_high_valid_counter = 0; // Store Threshold Value for debouncing
 
 int main()
 {
 
-    application_initialize();;
+    application_initialize();
 
     while (1)
     {
@@ -29,16 +29,16 @@ int main()
 
         if (BUTTON_PRESSED == button_high_state)
         {
-            btn_high_valid_counter++;
-            if (btn_high_valid_counter > 500)
-            { /* 500 acts as threshold value */
-                button_high_valid_state = BUTTON_PRESSED;
+            button_high_valid_counter++;
+            if (button_high_valid_counter > 500) /* 500 acts as threshold value */
+            { 
+                button_high_valid_state = BUTTON_PRESSED;  /* valid status */
             }
         }
         else
         {
-            btn_high_valid_counter = 0;
-            button_high_valid_state = BUTTON_RELEASED;
+            button_high_valid_counter = 0;
+            button_high_valid_state = BUTTON_RELEASED;  /* valid status */
         }
     }
     return (EXIT_SUCCESS);
