@@ -1,4 +1,4 @@
-# Microcontroller Interfacing 🚀
+# Microcontroller Interfacing 
 
 This repository contains standard, modular, bare-metal C drivers for the **PIC18F4620** microcontroller. 
 
