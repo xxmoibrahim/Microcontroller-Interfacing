@@ -6,16 +6,32 @@
  */
 /*=================================================================================================*/
 #include "application.h"
-#include "ECU_Layer/RELAY/ecu_relay.h"
-
 /*=================================================================================================*/
 
-relay_t relay_1 = { .relay_port = PORTC_INDEX ,
-                    .relay_pin = GPIO_PIN0 ,
-                    .relay_status = RELAY_OFF_STATUS};
+dc_motor_t dc_motor_1 = {
+    .dc_motor_pins[DC_MOTOR_PIN1].port = PORTC_INDEX , 
+    .dc_motor_pins[DC_MOTOR_PIN1].pin = GPIO_PIN0,
+    .dc_motor_pins[DC_MOTOR_PIN1].direction = GPIO_DIRECTION_OUTPUT,
+    .dc_motor_pins[DC_MOTOR_PIN1].logic = GPIO_LOW,
+    .dc_motor_pins[DC_MOTOR_PIN2].port = PORTC_INDEX , 
+    .dc_motor_pins[DC_MOTOR_PIN2].pin = GPIO_PIN1,
+    .dc_motor_pins[DC_MOTOR_PIN2].direction = GPIO_DIRECTION_OUTPUT,
+    .dc_motor_pins[DC_MOTOR_PIN2].logic = GPIO_LOW,    
+};
+
+dc_motor_t dc_motor_2 = {
+    .dc_motor_pins[DC_MOTOR_PIN1].port = PORTC_INDEX , 
+    .dc_motor_pins[DC_MOTOR_PIN1].pin = GPIO_PIN2,
+    .dc_motor_pins[DC_MOTOR_PIN1].direction = GPIO_DIRECTION_OUTPUT,
+    .dc_motor_pins[DC_MOTOR_PIN1].logic = GPIO_LOW,
+    .dc_motor_pins[DC_MOTOR_PIN2].port = PORTC_INDEX , 
+    .dc_motor_pins[DC_MOTOR_PIN2].pin = GPIO_PIN3,
+    .dc_motor_pins[DC_MOTOR_PIN2].direction = GPIO_DIRECTION_OUTPUT,
+    .dc_motor_pins[DC_MOTOR_PIN2].logic = GPIO_LOW,    
+};
+
 
 Std_ReturnType ret = E_NOT_OK;
-
 
 int main()
 {
@@ -24,13 +40,27 @@ int main()
     
     while (1)
     {
-        ret = relay_toggle(&relay_1);
-        __delay_ms(5000);
+        ret = dc_motor_move_right(&dc_motor_1);
+        __delay_ms(2000);
+        ret = dc_motor_stop(&dc_motor_1);
+        __delay_ms(2000);
+        ret = dc_motor_move_left(&dc_motor_1);
+        __delay_ms(2000);
+        ret = dc_motor_stop(&dc_motor_1);
+        ret = dc_motor_move_right(&dc_motor_2);
+        __delay_ms(2000);
+        ret = dc_motor_stop(&dc_motor_2);
+        __delay_ms(2000);
+        ret = dc_motor_move_left(&dc_motor_2);
+        __delay_ms(2000);
+        ret = dc_motor_stop(&dc_motor_2);
+        __delay_ms(2000);
     }
     return (EXIT_SUCCESS);
 }
 
 void application_initialize(void)
 {
-    ret = relay_initialize(&relay_1);
+    ret = dc_motor_initialize(&dc_motor_1);
+    ret = dc_motor_initialize(&dc_motor_2);
 }

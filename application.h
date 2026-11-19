@@ -16,6 +16,9 @@
 
 #include "ECU_Layer/LED/ecu_led.h"
 #include "ECU_Layer/BUTTON/ecu_button.h"
+#include "ECU_Layer/RELAY/ecu_relay.h"
+#include "ECU_Layer/DC_MOTOR/ecu_dc_motor.h"
+
 /* Section : Macro Declarations */ 
 
 /* Section : Macro Functions Declarations */ 
