@@ -18,6 +18,7 @@
 #include "ECU_Layer/BUTTON/ecu_button.h"
 #include "ECU_Layer/RELAY/ecu_relay.h"
 #include "ECU_Layer/DC_MOTOR/ecu_dc_motor.h"
+#include "ECU_Layer/7_SEGMENT/ecu_seven_segment.h"
 
 /* Section : Macro Declarations */ 
 
